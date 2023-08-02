@@ -5,12 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
+    <style> @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;700&display=swap'); </style>        
     <title>Library</title>
 </head>
 <body>
     <div class="container">
-        <div class="header"></div>
-        <div class="content"></div>
+        <div class="header"><h1>Library</h1></div>
+        <div class="buttons">
+            <button id="new_book">New Book</button>
+            <button id="remove_book">Remove Book</button>
+        </div>
+        <div class="content">
+            <div class="cardarea"></div>
+            <div class="modal">
+                <h3>Enter Your Book</h3>
+                <form action="example" method="post">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required>
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" name="author" required>
+                    <label for="pages">Number of Pages:</label>
+                    <input type="text" id="pages" name="pages" required>
+                    <label for="read">Have you read it?</label>
+                    <input type="checkbox" id="read" name="read" required>
+                    <button type="submit" onclick="event.preventDefault();addBook()">Add Book</button>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>
