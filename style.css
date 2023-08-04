@@ -14,6 +14,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 100vw;
+    height: 100vh;
 }
 
 .header {
@@ -21,6 +22,27 @@ body {
     width: 100vw;
     text-align: center;
     border-radius: 5px;
+}
+
+.content {
+    flex: 1;
+}
+
+.footer {
+    background: radial-gradient(592px at 48.2% 50%, rgba(255, 255, 249, 0.6) 0%, rgb(160, 199, 254) 74.6%);
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    font-weight: bold;
+}
+
+.footer img {
+    height: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
 /* buttons */
 
@@ -59,9 +81,10 @@ button:hover {
 .card {
     background: radial-gradient(592px at 48.2% 50%, rgba(255, 255, 249, 1) 0%, rgb(160, 199, 254) 74.6%);
     border: 2px solid lightblue;
-    padding: 25px;
+    height: 175px;
     width: 300px;
     margin: 15px;
+    padding: 25px;
 }
 
 .card button {
