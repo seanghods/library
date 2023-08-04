@@ -1,4 +1,5 @@
 let myLibrary = [];
+let counter = 0;
 const newButton = document.querySelector('#new_book');
 const modal = document.querySelector('.modal');
 const cardArea = document.querySelector('.cardarea')
@@ -26,46 +27,37 @@ function addBook() {
     read.value == 'on' ? read.value = 'Read' : read.value = 'Not read'
     const newBook = new Book(title.value, author.value, pages.value, read.value);
     myLibrary.push(newBook);
-    showBooks();
+    showNewBook(newBook);
 }
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-}
-
-function showBooks() {
-    cardArea.innerHTML = '';
-    for (let i = 0; i < myLibrary.length; i++) {
-        const newBookDiv = document.createElement("div");
+function showNewBook(newBook) {
+    const newBookDiv = document.createElement("div");
         newBookDiv.classList.add('card');
-        newBookDiv.setAttribute('id', `card-${i}`);
+        newBookDiv.setAttribute('id', `card-${counter}`);
 
         const titleDiv = document.createElement("div");
-        titleDiv.innerHTML = `Title: ${myLibrary[i].title}`;
+        titleDiv.innerHTML = `Title: ${newBook.title}`;
         titleDiv.classList.add('cardtitle');
         newBookDiv.appendChild(titleDiv);
 
         const authorDiv = document.createElement("div");
-        authorDiv.innerHTML = `Author: ${myLibrary[i].author}`;
+        authorDiv.innerHTML = `Author: ${newBook.author}`;
         authorDiv.classList.add('cardauthor');
         newBookDiv.appendChild(authorDiv);
 
         const pagesDiv = document.createElement("div");
-        pagesDiv.innerHTML = `Number of Pages: ${myLibrary[i].pages}`;
+        pagesDiv.innerHTML = `Number of Pages: ${newBook.pages}`;
         pagesDiv.classList.add('cardpages');
         newBookDiv.appendChild(pagesDiv);
 
         const readDiv = document.createElement("div");
-        readDiv.innerHTML = myLibrary[i].read;
+        readDiv.innerHTML = newBook.read;
         readDiv.classList.add('cardread');
         newBookDiv.appendChild(readDiv);
 
         const buttonDiv = document.createElement("div");
         buttonDiv.classList.add('carddelete');
-        buttonDiv.setAttribute('id', `${i}`);
+        buttonDiv.setAttribute('id', `${counter}`);
         const readButton = document.createElement("button");
         readButton.classList.add('button-read');
         readButton.addEventListener('click', (event) => {
@@ -91,7 +83,12 @@ function showBooks() {
         newBookDiv.appendChild(buttonDiv);
 
         cardArea.appendChild(newBookDiv);
-    }
+        counter++;
+}
 
-
+function Book(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
 }
