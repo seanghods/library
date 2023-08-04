@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
     <style> @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;700&display=swap'); </style>        
@@ -13,7 +14,6 @@
         <div class="header"><h1>Library</h1></div>
         <div class="buttons">
             <button id="new_book">New Book</button>
-            <button id="remove_book">Remove Book</button>
         </div>
         <div class="content">
             <div class="cardarea"></div>
@@ -28,7 +28,7 @@
                     <input type="text" id="pages" name="pages" required>
                     <label for="read">Have you read it?</label>
                     <input type="checkbox" id="read" name="read" required>
-                    <button type="submit" onclick="event.preventDefault();addBook()">Add Book</button>
+                    <button type="submit" onclick="event.preventDefault();addBook();">Add Book</button>
                 </form>
             </div>
         </div>

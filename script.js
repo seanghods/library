@@ -9,6 +9,9 @@ window.onload = () => {
 
 function setup() {
     newButton.addEventListener('click',showModal);
+    document.addEventListener('keydown', (event) => {
+        if (event.key == 'Control') modal.classList.remove('active');
+    })
 }
 
 function showModal() {
@@ -26,18 +29,11 @@ function addBook() {
     showBooks();
 }
 
-function deleteBook() {
-    
-}
-
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.info = function() {
-        return `${this.title} by ${this.author}, ${pages} pages, read it? ${read}`
-    }
 }
 
 function showBooks() {
@@ -45,32 +41,57 @@ function showBooks() {
     for (let i = 0; i < myLibrary.length; i++) {
         const newBookDiv = document.createElement("div");
         newBookDiv.classList.add('card');
+        newBookDiv.setAttribute('id', `card-${i}`);
+
         const titleDiv = document.createElement("div");
         titleDiv.innerHTML = `Title: ${myLibrary[i].title}`;
         titleDiv.classList.add('cardtitle');
         newBookDiv.appendChild(titleDiv);
+
         const authorDiv = document.createElement("div");
         authorDiv.innerHTML = `Author: ${myLibrary[i].author}`;
         authorDiv.classList.add('cardauthor');
         newBookDiv.appendChild(authorDiv);
+
         const pagesDiv = document.createElement("div");
         pagesDiv.innerHTML = `Number of Pages: ${myLibrary[i].pages}`;
-        pagesDiv.classList.add('cardauthor');
+        pagesDiv.classList.add('cardpages');
         newBookDiv.appendChild(pagesDiv);
+
         const readDiv = document.createElement("div");
         readDiv.innerHTML = myLibrary[i].read;
         readDiv.classList.add('cardread');
         newBookDiv.appendChild(readDiv);
-        const deleteDiv = document.createElement("div");
-        deleteDiv.classList.add('carddelete');
+
+        const buttonDiv = document.createElement("div");
+        buttonDiv.classList.add('carddelete');
+        buttonDiv.setAttribute('id', `${i}`);
+        const readButton = document.createElement("button");
+        readButton.classList.add('button-read');
+        readButton.addEventListener('click', (event) => {
+            const divRead = document.querySelector(`#card-${event.target.parentNode.id}`);
+            const reader = divRead.querySelector('.cardread')
+            reader.innerHTML == 'Read' ? reader.innerHTML = 'Not read' : reader.innerHTML = 'Read';
+            if (myLibrary[event.target.parentNode.id]['read'] == 'Read') {
+                myLibrary[event.target.parentNode.id]['read'] = 'Not read';
+            } else { 
+                myLibrary[event.target.parentNode.id]['read'] = 'Read';
+            }
+        });
+        buttonDiv.appendChild(readButton);
+
         const deleteButton = document.createElement("button");
         deleteButton.classList.add('delete');
-        deleteButton.addEventListener('click', deleteBook);
-        const trashPic = document.createElement('img');
-        trashPic.src = './images/trash.png';
-        deleteButton.appendChild(trashPic);
-        deleteDiv.appendChild(deleteButton);
-        newBookDiv.appendChild(deleteDiv);
+        deleteButton.addEventListener('click', (event) => {
+            const divRemove = document.querySelector(`#card-${event.target.parentNode.id}`);
+            divRemove.remove();
+            myLibrary.splice(event.target.id,1);
+        });
+        buttonDiv.appendChild(deleteButton);
+        newBookDiv.appendChild(buttonDiv);
+
         cardArea.appendChild(newBookDiv);
     }
+
+
 }
