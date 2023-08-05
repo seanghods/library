@@ -27,7 +27,11 @@
                     <label for="pages">Number of Pages:</label>
                     <input type="text" id="pages" name="pages" required>
                     <label for="read">Have you read it?</label>
-                    <input type="checkbox" id="read" name="read" required>
+                    <select id="read">
+                        <option selected disabled value="Not Read">Please choose...</option>
+                        <option value="Read">Yes</option>
+                        <option value="Not Read">No</option>
+                    </select>
                     <button type="submit" onclick="event.preventDefault();addBook();">Add Book</button>
                 </form>
             </div>
