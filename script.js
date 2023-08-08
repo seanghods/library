@@ -1,25 +1,39 @@
 // Setup
-
-let myLibrary = [];
 let counter = 0;
 const newButton = document.querySelector('#new_book');
 const modal = document.querySelector('.modal');
 const cardArea = document.querySelector('.cardarea')
 
-window.onload = () => {
-    setup();
-}
-
-function setup() {
+const setup = (() => {
     newButton.addEventListener('click',showModal);
     document.addEventListener('keydown', (event) => {
         if (event.key == 'Control') modal.classList.remove('active');
     })
-}
+})();  
 
 function showModal() {
     modal.classList.toggle('active');
 }
+
+class Library {
+    constructor() {
+        this.books = [];
+    }
+    
+    addBook(newBook) {
+        if (!this.books.includes(newBook)) this.books.push(newBook);
+    }
+
+    removeBook(inputId) {
+        this.books.splice(inputId, 1);
+    }
+
+    getBooks() {
+        return this.books;
+    }
+}
+
+const myLibrary = new Library();
 
 // Book Creation
 
@@ -29,15 +43,17 @@ function addBook() {
     const pages = document.querySelector('#pages');
     const read = document.querySelector('#read');
     const newBook = new Book(title.value, author.value, pages.value, read.value);
-    myLibrary.push(newBook);
+    myLibrary.addBook(newBook);
     showNewBook(newBook);
 }
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
 }
 
 // Showing Book
@@ -77,10 +93,10 @@ function makeReadButton() {
         const divRead = document.querySelector(`#card-${event.target.parentNode.id}`);
         const reader = divRead.querySelector('.cardread')
         reader.innerHTML == 'Read' ? reader.innerHTML = 'Not read' : reader.innerHTML = 'Read';
-        if (myLibrary[event.target.parentNode.id]['read'] == 'Read') {
-            myLibrary[event.target.parentNode.id]['read'] = 'Not read';
+        if (myLibrary.getBooks[event.target.parentNode.id]['read'] == 'Read') {
+            myLibrary.getBooks[event.target.parentNode.id]['read'] = 'Not read';
         } else { 
-            myLibrary[event.target.parentNode.id]['read'] = 'Read';
+            myLibrary.getBooks[event.target.parentNode.id]['read'] = 'Read';
         }
     });
     return readButton;
@@ -92,7 +108,7 @@ const deleteButton = document.createElement("button");
         deleteButton.addEventListener('click', (event) => {
             const divRemove = document.querySelector(`#card-${event.target.parentNode.id}`);
             divRemove.remove();
-            myLibrary.splice(event.target.id,1);
+            myLibrary.removeBook(event.target.id);
         });
         return deleteButton;
 }
